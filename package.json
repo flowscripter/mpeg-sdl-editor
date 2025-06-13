@@ -1,0 +1,38 @@
+{
+  "name": "@flowscripter/mpeg-sdl-editor",
+  "description": "ISO/IEC 14496-34 Syntactic Description Language (MPEG SDL) web based editor",
+  "homepage": "https://github.com/flowscripter/mpeg-sdl-editor#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flowscripter/mpeg-sdl-editor.git"
+  },
+  "license": "MIT",
+  "keywords": [
+    "bun",
+    "mpeg",
+    "sdl",
+    "parser",
+    "editor"
+  ],
+  "type": "module",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@flowscripter/mpeg-sdl-parser": "^1.2.4",
+    "@types/bun": "^1.2.15"
+  },
+  "peerDependencies": {
+    "typescript": "^5.8.3",
+    "@types/react": "^19",
+    "@types/react-dom": "^19"
+  },
+  "dependencies": {
+    "@codemirror/lang-javascript": "^6.2.4",
+    "@lezer/common": "^1.2.3",
+    "@uiw/react-codemirror": "4.23.12",
+    "react": "^19",
+    "react-dom": "^19"
+  }
+}
