@@ -1,4 +1,4 @@
-const tailwindConfig: import('tailwindcss').Config & { daisyui?: any } = {
+const tailwindConfig: import("tailwindcss").Config & { daisyui?: any } = {
   content: [
     "./src/**/*.{html,js,jsx,ts,tsx}",
   ],
