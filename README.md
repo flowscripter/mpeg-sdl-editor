@@ -24,11 +24,11 @@ Test:
 
 Serve dev version:
 
-`bun src/index.html`
+`bun html/index.html`
 
 Bundle:
 
-`bun build src/index.html --outdir ./dist --entry-naming bundle.js --minify`
+`bun run build`
 
 **NOTE**: The following tasks use Deno as it excels at these and Bun does not
 currently provide such functionality:

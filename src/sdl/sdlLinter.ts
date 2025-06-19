@@ -4,7 +4,7 @@ import { type SyntaxNodeRef } from "@lezer/common";
 
 export function sdlLinter() {
   return linter((view) => {
-    let diagnostics: Diagnostic[] = [];
+    const diagnostics: Diagnostic[] = [];
 
     syntaxTree(view.state).cursor().iterate((node: SyntaxNodeRef) => {
       if (node.type.isError) {
