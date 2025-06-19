@@ -36,7 +36,7 @@
     "@types/react-dom": "^19.1.6"
   },
   "dependencies": {
-    "@flowscripter/mpeg-sdl-parser": "^1.2.8",
+    "@flowscripter/mpeg-sdl-parser": "^1.2.9",
     "@lezer/common": "^1.2.3",
     "@lezer/highlight": "^1.2.1",
     "@types/wicg-file-system-access": "^2023.10.6",
