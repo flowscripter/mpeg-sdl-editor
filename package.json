@@ -1,0 +1,49 @@
+{
+  "name": "@flowscripter/mpeg-sdl-editor",
+  "description": "ISO/IEC 14496-34 Syntactic Description Language (MPEG SDL) web based editor",
+  "homepage": "https://github.com/flowscripter/mpeg-sdl-editor#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flowscripter/mpeg-sdl-editor.git"
+  },
+  "license": "MIT",
+  "keywords": [
+    "bun",
+    "mpeg",
+    "sdl",
+    "parser",
+    "editor"
+  ],
+  "type": "module",
+  "version": "0.0.0",
+  "scripts": {
+    "build": "bun build.ts"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@happy-dom/global-registrator": "^18.0.1",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.3.0",
+    "@types/bun": "^1.2.16",
+    "bun-plugin-tailwind": "^0.0.15",
+    "happy-dom": "^18.0.1"
+  },
+  "peerDependencies": {
+    "typescript": "^5.8.3",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6"
+  },
+  "dependencies": {
+    "@flowscripter/mpeg-sdl-parser": "^1.2.8",
+    "@lezer/common": "^1.2.3",
+    "@lezer/highlight": "^1.2.1",
+    "@types/wicg-file-system-access": "^2023.10.6",
+    "@uiw/react-codemirror": "4.23.13",
+    "daisyui": "^5.0.43",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "tailwindcss": "^4.1.10"
+  }
+}
