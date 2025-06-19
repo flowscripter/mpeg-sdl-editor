@@ -48,4 +48,3 @@ Refer to [functional_tests/README.md](functional_tests/README.md)
 ## License
 
 MIT © Flowscripter
-
