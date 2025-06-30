@@ -18,14 +18,16 @@ export function Editor({ value, onChange, theme }: EditorProps) {
   }, [onChange]);
 
   return (
-    <CodeMirror
-      value={value}
-      theme={theme}
-      width="100%"
-      height="100%"
-      className="h-full w-full border border-base-300 rounded-md"
-      onChange={onCodeMirrorChange}
-      extensions={extensions}
-    />
+    <div className="h-full w-full">
+      <CodeMirror
+        value={value}
+        theme={theme}
+        width="100%"
+        height="100%"
+        className="h-full w-full border border-base-300 rounded-md"
+        onChange={onCodeMirrorChange}
+        extensions={extensions}
+      />
+    </div>
   );
 }
