@@ -2,7 +2,7 @@
 
 [![version](https://img.shields.io/github/v/release/flowscripter/mpeg-sdl-editor?sort=semver)](https://github.com/flowscripter/mpeg-sdl-editor/releases)
 [![build](https://img.shields.io/github/actions/workflow/status/flowscripter/mpeg-sdl-editor/release-bun-webapp.yml)](https://github.com/flowscripter/mpeg-sdl-editor/actions/workflows/release-bun-webapp.yml)
-[![coverage](https://codecov.io/gh/flowscripter/mpeg-sdl-editor/branch/main/graph/badge.svg?token=EMFT2938ZF)](https://codecov.io/gh/flowscripter/mpeg-sdl-editor)
+[![coverage](https://codecov.io/gh/flowscripter/mpeg-sdl-editor/branch/main/graph/badge.svg?token=slPpXC362U)](https://codecov.io/gh/flowscripter/mpeg-sdl-editor)
 [![license: MIT](https://img.shields.io/github/license/flowscripter/mpeg-sdl-editor)](https://github.com/flowscripter/mpeg-sdl-editor/blob/main/LICENSE)
 
 > ISO/IEC 14496-34 Syntactic Description Language (MPEG SDL) web based editor.
