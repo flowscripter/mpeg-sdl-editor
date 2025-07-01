@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import type { ShowToastFunction } from "./useToast";
 
 interface UseFileOperationsProps {
@@ -10,7 +10,6 @@ export function useFileOperations(
   { initialCode, showToast }: UseFileOperationsProps,
 ) {
   const [code, setCode] = useState<string>(initialCode);
-  const loadFileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSave = useCallback(async () => {
     try {
@@ -44,20 +43,15 @@ export function useFileOperations(
       }
     } catch (err) {
       if (err instanceof DOMException && err.name === "AbortError") {
-        console.info("File save dialog aborted by user.");
         showToast("File save cancelled.");
       } else {
         console.error("Error saving file:", err);
-        showToast("Error saving file. See console.");
+        showToast("Error saving file. See console.", "error");
       }
     }
   }, [code, showToast]);
 
-  const handleLoad = useCallback(() => {
-    loadFileInputRef.current?.click();
-  }, []);
-
-  const handleFileChange = useCallback(
+  const handleLoad = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const file = event.target.files?.[0];
       if (file) {
@@ -74,9 +68,6 @@ export function useFileOperations(
         };
         reader.readAsText(file);
       }
-      if (loadFileInputRef.current) {
-        loadFileInputRef.current.value = "";
-      }
     },
     [showToast],
   );
@@ -87,17 +78,15 @@ export function useFileOperations(
       showToast("Content copied to clipboard!");
     } catch (err) {
       console.error("Failed to copy text: ", err);
-      showToast("Failed to copy content. See console.");
+      showToast("Failed to copy content. See console.", "error");
     }
   }, [code, showToast]);
 
   return {
     code,
     setCode,
-    loadFileInputRef,
     handleSave,
     handleLoad,
-    handleFileChange,
     handleCopy,
   };
 }
