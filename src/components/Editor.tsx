@@ -133,7 +133,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>(
             highlightActiveLineGutter: true,
             highlightActiveLine: true,
             highlightSelectionMatches: true,
-            autocompletion: false,
+            autocompletion: true,
             defaultKeymap: false,
             searchKeymap: false,
             historyKeymap: false,
