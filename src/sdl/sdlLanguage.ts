@@ -1,12 +1,12 @@
-import { createLenientSdlParser } from "@flowscripter/mpeg-sdl-parser";
 import { LRParser as LezerParser } from "@lezer/lr";
+import { type Extension } from "@codemirror/state";
 import { styleTags, tags as t } from "@lezer/highlight";
 import {
-  foldInside,
   foldNodeProp,
   LanguageSupport,
   LRLanguage,
 } from "@codemirror/language";
+import { createLenientSdlParser } from "@flowscripter/mpeg-sdl-parser";
 
 export function createParser(): LezerParser {
   const parser = createLenientSdlParser();
@@ -89,8 +89,18 @@ export function createParser(): LezerParser {
         SingleQuote: t.punctuation,
         DoubleQuote: t.punctuation,
       }),
-      foldNodeProp.add({
-        Application: foldInside,
+      foldNodeProp.add((type) => {
+        return type.is("ClassDeclaration") ||
+            type.is("MapDeclaration") || type.is("CompoundStatement") ||
+            type.is("SwitchStatement") || type.is("CaseClause") ||
+            type.is("DefaultClause") || type.is("IfStatement") ||
+            type.is("WhileStatement") || type.is("DoStatement") ||
+            type.is("ForStatement")
+          ? (tree, state) => ({
+            from: state.doc.lineAt(tree.from).to,
+            to: tree.to,
+          })
+          : undefined;
       }),
     ],
   });
@@ -103,6 +113,6 @@ export const sdlLanguage = LRLanguage.define({
   },
 });
 
-export function sdl() {
+export function sdl(): Extension {
   return new LanguageSupport(sdlLanguage); //, [exampleCompletion])
 }

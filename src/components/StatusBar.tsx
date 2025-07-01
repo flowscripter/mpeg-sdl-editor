@@ -1,12 +1,14 @@
 interface StatusBarProps {
   lineCount: number;
   characterCount: number;
-  cursorPosition?: { line: number; col: number };
+  syntacticErrorCount: number;
+  cursorPosition: { line: number; col: number };
 }
 
 export function StatusBar({
   lineCount,
   characterCount,
+  syntacticErrorCount,
   cursorPosition,
 }: StatusBarProps) {
   return (
@@ -14,12 +16,11 @@ export function StatusBar({
       <div className="flex items-center space-x-4">
         <span>Lines: {lineCount}</span>
         <span>Characters: {characterCount}</span>
-        {cursorPosition && (
-          <>
-            <span>Row: {cursorPosition.line}</span>
-            <span>Col: {cursorPosition.col}</span>
-          </>
-        )}
+        <span>Syntactic Errors: {syntacticErrorCount}</span>
+      </div>
+      <div className="flex items-center space-x-4">
+        <span>Row: {cursorPosition.line}</span>
+        <span>Column: {cursorPosition.col}</span>
       </div>
     </div>
   );

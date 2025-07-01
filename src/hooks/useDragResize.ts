@@ -4,8 +4,7 @@ interface UseDragResizeProps {
   containerRef: React.RefObject<HTMLDivElement | null>;
   minLeftWidth: number;
   minRightWidth: number;
-  isMobile: boolean;
-  isPanelCollapsed: boolean;
+  isInfoShown: boolean;
   onSplitPercentageChange: (percentage: number) => void;
 }
 
@@ -13,8 +12,7 @@ export function useDragResize({
   containerRef,
   minLeftWidth,
   minRightWidth,
-  isMobile,
-  isPanelCollapsed,
+  isInfoShown,
   onSplitPercentageChange,
 }: UseDragResizeProps) {
   const [isDragging, setIsDragging] = useState(false);
@@ -22,9 +20,7 @@ export function useDragResize({
   const [dragStartPercentage, setDragStartPercentage] = useState(0);
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
-
-    // Disable resizing on mobile or when panel is collapsed
-    if (isMobile || isPanelCollapsed) {
+    if (!isInfoShown) {
       return;
     }
 
@@ -33,7 +29,7 @@ export function useDragResize({
     const container = containerRef.current;
 
     if (!container) {
-        return;
+      return;
     }
 
     const containerRect = container.getBoundingClientRect();
@@ -43,10 +39,10 @@ export function useDragResize({
     setDragStartX(e.clientX);
     setDragStartPercentage(currentPercentage);
     setIsDragging(true);
-  }, [isMobile, isPanelCollapsed, containerRef]);
+  }, [isInfoShown, containerRef]);
 
   const handleMouseMove = useCallback((e: MouseEvent) => {
-    if (!isDragging || !containerRef.current || isMobile || isPanelCollapsed) {
+    if (!isDragging || !containerRef.current || !isInfoShown) {
       return;
     }
 
@@ -76,8 +72,7 @@ export function useDragResize({
     dragStartPercentage,
     minLeftWidth,
     minRightWidth,
-    isMobile,
-    isPanelCollapsed,
+    isInfoShown,
     onSplitPercentageChange,
     containerRef,
   ]);
@@ -87,7 +82,7 @@ export function useDragResize({
   }, []);
 
   useEffect(() => {
-    if (isDragging && !isMobile && !isPanelCollapsed) {
+    if (isDragging && isInfoShown) {
       document.addEventListener("mousemove", handleMouseMove);
       document.addEventListener("mouseup", handleMouseUp);
       document.body.style.cursor = "col-resize";
@@ -100,7 +95,7 @@ export function useDragResize({
         document.body.style.userSelect = "";
       };
     }
-  }, [isDragging, handleMouseMove, handleMouseUp, isMobile, isPanelCollapsed]);
+  }, [isDragging, handleMouseMove, handleMouseUp, isInfoShown]);
 
   return {
     isDragging,

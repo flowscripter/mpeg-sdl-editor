@@ -4,7 +4,7 @@ interface DesktopPanelsProps {
   leftChild: React.ReactNode;
   rightChild: React.ReactNode;
   splitPercentage: number;
-  isPanelCollapsed: boolean;
+  isInfoShown: boolean;
   isDragging: boolean;
   onMouseDown: (e: React.MouseEvent) => void;
 }
@@ -13,7 +13,7 @@ export function DesktopPanels({
   leftChild,
   rightChild,
   splitPercentage,
-  isPanelCollapsed,
+  isInfoShown,
   isDragging,
   onMouseDown,
 }: DesktopPanelsProps) {
@@ -22,13 +22,13 @@ export function DesktopPanels({
       {/* Left panel */}
       <div
         className="flex flex-col"
-        style={{ width: isPanelCollapsed ? "100%" : `${splitPercentage}%` }}
+        style={{ width: !isInfoShown ? "100%" : `${splitPercentage}%` }}
       >
         {leftChild}
       </div>
 
       {/* Divider - only show when panel is not collapsed */}
-      {!isPanelCollapsed && (
+      {isInfoShown && (
         <div
           className={`w-1 bg-base-300 hover:bg-primary/50 cursor-col-resize transition-all duration-150 ${
             isDragging ? "bg-primary/70 w-1.5" : ""
@@ -50,7 +50,7 @@ export function DesktopPanels({
       )}
 
       {/* Right panel - only show when not collapsed */}
-      {!isPanelCollapsed && (
+      {isInfoShown && (
         <div
           className="flex flex-col"
           style={{ width: `${Math.max(100 - splitPercentage, 5)}%` }}

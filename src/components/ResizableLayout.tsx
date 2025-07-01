@@ -1,78 +1,40 @@
-import React, { useCallback, useEffect } from "react";
-import { useMobileDetection } from "../hooks/useMobileDetection";
-import { usePanelState } from "../hooks/usePanelState";
+import React, { useCallback, useRef, useState } from "react";
 import { useDragResize } from "../hooks/useDragResize";
 import { MobileDrawer } from "./MobileDrawer";
 import { DesktopPanels } from "./DesktopPanels";
+import type { Theme } from "../hooks/useTheme";
 
 interface ResizableLayoutProps {
   children: [React.ReactNode, React.ReactNode];
-  initialSplitPercentage?: number;
-  minLeftWidth?: number;
-  minRightWidth?: number;
-  onToggleInfo?: (isOpen: boolean) => void;
-  onMobileStateChange?: (isMobile: boolean) => void;
+  theme: Theme;
+  isInfoShown: boolean;
+  isMobile: boolean;
+  onToggleInfo: () => void;
 }
 
 export function ResizableLayout({
   children,
-  initialSplitPercentage = 70,
-  minLeftWidth = 300,
-  minRightWidth = 200,
+  theme,
+  isInfoShown,
+  isMobile,
   onToggleInfo,
-  onMobileStateChange,
 }: ResizableLayoutProps) {
-  const isMobile = useMobileDetection();
+  const minLeftWidth = 400;
+  const minRightWidth = 300;
+  const [splitPercentage, setSplitPercentage] = useState(70);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const {
-    splitPercentage,
-    setSplitPercentage,
-    isDrawerOpen,
-    isPanelCollapsed,
-    containerRef,
-    toggleMobileDrawer,
-    toggleDesktopPanel,
-    resetForMobile,
-    resetForDesktop,
-  } = usePanelState({
-    initialSplitPercentage,
-    minRightWidth,
-    onToggleInfo,
-  });
+  const onSplitPercentageChange = useCallback((percentage: number) => {
+    setSplitPercentage(percentage);
+  }, []);
 
   const { isDragging, handleMouseDown } = useDragResize({
     containerRef,
     minLeftWidth,
     minRightWidth,
-    isMobile,
-    isPanelCollapsed,
-    onSplitPercentageChange: setSplitPercentage,
+    isInfoShown,
+    onSplitPercentageChange,
   });
-
-  const toggleInfo = useCallback(() => {
-    if (isMobile) {
-      toggleInfoDrawer();
-    }
-    else {
-      toggleInfoPanel();
-    }
-  }, [isMobile, toggleInfoDrawer, toggleInfoPanel]);
-
-  // Handle mobile/desktop mode switching
-  useEffect(() => {
-    if (isMobile) {
-      resetInfoDrawer();
-    }
-    else {
-      resetInfoPanel();
-    }
-  }, [
-    isMobile,
-    resetForMobile,
-    resetForDesktop,
-    onMobileStateChange,
-    toggleDrawer,
-  ]);
 
   return (
     <div ref={containerRef} className="flex h-full w-full relative">
@@ -84,8 +46,9 @@ export function ResizableLayout({
             </div>
 
             <MobileDrawer
-              isOpen={isDrawerOpen}
-              onToggleInfo={toggleInfo}
+              theme={theme}
+              isInfoShown={isInfoShown}
+              onToggleInfo={onToggleInfo}
             >
               {children[1]}
             </MobileDrawer>
@@ -96,7 +59,7 @@ export function ResizableLayout({
             leftChild={children[0]}
             rightChild={children[1]}
             splitPercentage={splitPercentage}
-            isPanelCollapsed={isPanelCollapsed}
+            isInfoShown={isInfoShown}
             isDragging={isDragging}
             onMouseDown={handleMouseDown}
           />

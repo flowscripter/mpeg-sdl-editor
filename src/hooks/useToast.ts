@@ -1,24 +1,37 @@
 import { useCallback, useEffect, useState } from "react";
 
-export type ShowToastFunction = (message: string, duration?: number) => void;
+export type ToastType = "success" | "warning" | "error";
+export type ShowToastFunction = (
+  message: string,
+  type?: ToastType,
+  duration?: number,
+) => void;
 
-export function useToast(): [string | null, ShowToastFunction] {
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
+interface ToastState {
+  message: string;
+  type: ToastType;
+}
+
+export function useToast(): [ToastState | null, ShowToastFunction] {
+  const [toastState, setToastState] = useState<ToastState | null>(null);
   const [toastDuration, setToastDuration] = useState<number>(2000);
 
   useEffect(() => {
-    if (toastMessage) {
+    if (toastState) {
       const timer = setTimeout(() => {
-        setToastMessage(null);
+        setToastState(null);
       }, toastDuration);
       return () => clearTimeout(timer);
     }
-  }, [toastMessage, toastDuration]);
+  }, [toastState, toastDuration]);
 
-  const showToast = useCallback((message: string, duration: number = 2000) => {
-    setToastMessage(message);
-    setToastDuration(duration);
-  }, []);
+  const showToast = useCallback(
+    (message: string, type: ToastType = "success", duration: number = 2000) => {
+      setToastState({ message, type });
+      setToastDuration(duration);
+    },
+    [],
+  );
 
-  return [toastMessage, showToast];
+  return [toastState, showToast];
 }

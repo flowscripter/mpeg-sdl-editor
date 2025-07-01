@@ -5,7 +5,13 @@ import { Editor } from "../src/components/Editor";
 describe("Editor component", () => {
   test("renders with initial value", () => {
     const { getAllByRole } = render(
-      <Editor value="int a;" onChange={() => {}} theme="light" />,
+      <Editor
+        value="int a;"
+        onCodeChange={() => {}}
+        onCursorChange={() => {}}
+        onParseErrorChange={() => {}}
+        theme="light"
+      />,
     );
     const textboxes = getAllByRole("textbox");
 
