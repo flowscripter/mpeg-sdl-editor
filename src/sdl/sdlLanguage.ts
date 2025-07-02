@@ -1,14 +1,13 @@
 import { LRParser as LezerParser } from "@lezer/lr";
 import { type Extension } from "@codemirror/state";
 import { styleTags, tags as t } from "@lezer/highlight";
-import { CompletionContext } from "@codemirror/autocomplete";
 import { createLenientSdlParser } from "@flowscripter/mpeg-sdl-parser";
 import {
   foldNodeProp,
   LanguageSupport,
   LRLanguage,
-  syntaxTree,
 } from "@codemirror/language";
+import { sdlComplete } from "./sdlComplete";
 
 export function createParser(): LezerParser {
   const parser = createLenientSdlParser();
@@ -115,27 +114,8 @@ export const sdlLanguage = LRLanguage.define({
   },
 });
 
-function completeSdl(context: CompletionContext) {
-  const nodeBefore = syntaxTree(context.state).resolveInner(context.pos, -1);
-  const textBefore = context.state.sliceDoc(nodeBefore.from, context.pos);
-  const tagBefore = /@\w*$/.exec(textBefore);
-
-  if (!tagBefore && !context.explicit) {
-    return null;
-  }
-
-  return {
-    from: tagBefore ? nodeBefore.from + tagBefore.index : context.pos,
-    options: [
-      { label: "class", type: "keyword" },
-      { label: "extends", type: "keyword" },
-    ],
-    validFor: /^\w*$/,
-  };
-}
-
 export const sdlCompletion = sdlLanguage.data.of({
-  autocomplete: completeSdl,
+  autocomplete: sdlComplete,
 });
 
 export function sdl(): Extension {
