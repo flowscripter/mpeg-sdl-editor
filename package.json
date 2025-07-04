@@ -19,9 +19,7 @@
   "scripts": {
     "build": "bun build.ts"
   },
-  "publishConfig": {
-    "access": "public"
-  },
+  "private": true,
   "devDependencies": {
     "@happy-dom/global-registrator": "^18.0.1",
     "@testing-library/dom": "^10.4.0",
