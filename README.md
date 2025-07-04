@@ -5,7 +5,8 @@
 [![coverage](https://codecov.io/gh/flowscripter/mpeg-sdl-editor/branch/main/graph/badge.svg?token=slPpXC362U)](https://codecov.io/gh/flowscripter/mpeg-sdl-editor)
 [![license: MIT](https://img.shields.io/github/license/flowscripter/mpeg-sdl-editor)](https://github.com/flowscripter/mpeg-sdl-editor/blob/main/LICENSE)
 
-**NOTE: This project has been adopted by MPEG and has been migrated to https://github.com/mpeggroup/mpeg-sdl-editor**
+**NOTE: This project has been adopted by MPEG and has been migrated to
+https://github.com/mpeggroup/mpeg-sdl-editor**
 
 > ISO/IEC 14496-34 Syntactic Description Language (MPEG SDL) web based editor.
 
